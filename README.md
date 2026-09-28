@@ -1,21 +1,17 @@
-OAA packages
+OAA base packages
 
-OkraLinux aarch64 基础软件包的构建产物
+OkraLinux aarch64 基础软件包的构建源
 
-packages 是配方，scripts 是构建脚本，out 是编译好的 oaa
+packages 目录每个 conf 是一个包的配方
 
-out 里每个包三份文件，oaa 本体，sha256 校验，sources 记源码地址和哈希
+scripts/build-package.sh 读配方，下载源码，交叉编译到 aarch64，打包成 oaa
 
-重新构建任意一个包
+scripts/publish.sh 把配方和产物推到 OkraLinux/oaa-packages
 
-    bash scripts/build-package.sh grep
+push 到 main 触发 actions 全量构建，也可以手动指定单个包
 
-必须在 aarch64 的 linux 上跑，因为产物就是 aarch64 原生的，x86 机器上编译不出来
+产物在 okra-packages 仓库的 out 目录
 
-加包就在 packages 里加一个 conf，脚本会自动收集，不用改别的地方
+加一个新包，在 packages 里加一个 conf 就行，不用改 workflow
 
-依赖关系写在 conf 的 Dependencies 里，现在都是依赖 glibc
-
-这一批是补齐基础系统缺的工具，kmod 和 libseccomp 补上以后 systemd 的报错会少很多
-
-源码没有放进仓库，只存地址和 sha256，要归档的话把 sources 里的 tar 包拉下来就行
+构建机是 ubuntu-24.04-arm，所以产物原生就是 aarch64
