@@ -48,7 +48,10 @@ if [ -n "$Sha256" ] && [ "$Sha256" != "$SourceSum" ]; then
 fi
 
 mkdir -p "$SourceDirectory"
-tar -xf "$Archive" -C "$SourceDirectory" --strip-components=1
+case "${ArchiveFormat:-auto}" in
+	lz) lzip -dc "$Archive" | tar -xf - -C "$SourceDirectory" --strip-components=1 ;;
+	*) tar -xf "$Archive" -C "$SourceDirectory" --strip-components=1 ;;
+esac
 
 if declare -f Build > /dev/null; then
 	echo "== custom build"
