@@ -124,8 +124,6 @@ rm -rf "$MetadataOutput"
 mkdir -p "$MetadataOutput"
 cp -f "${ArchiveName}.sha256" "$MetadataOutput/"
 echo "${SourceSum}  ${Url}" > "$MetadataOutput/${Name}-${Version}-${Release}.sources"
-
-cp -f "${ArchiveName}.sha256" "$PackageOutput/"
 echo "${SourceSum}  ${Url}" > "$PackageOutput/${Name}-${Version}-${Release}.sources"
 
 echo "== built $ArchiveName"
