@@ -76,8 +76,7 @@ jobs:
           merge-multiple: true
       - name: publish
         env:
-          PublishToken: ${{ secrets.PUBLISH_TOKEN }}
-          TargetRepository: OkraLinux/oaa-packages
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p out
           [ -d collected/_temp/okra-artifacts ] && cp -a collected/_temp/okra-artifacts/. out/ || true
